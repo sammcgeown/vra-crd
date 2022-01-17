@@ -167,8 +167,6 @@ spec:
                 description: 'Date when the entity was last updated. The date is ISO
                   8601 and UTC. Example: 2012-09-27'
                 type: string
-            required:
-            - tags
             type: object
           status:
             description: VirtualMachineStatus defines the observed state of VirtualMachine

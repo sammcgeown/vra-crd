@@ -166,6 +166,7 @@ type VirtualMachineSpec struct {
 	Constraints []Constraint `json:"constraints,omitempty"`
 
 	// Label tags
+	// +optional
 	Tags []Tag `json:"tags"`
 }
 
