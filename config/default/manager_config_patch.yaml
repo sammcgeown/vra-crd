@@ -14,6 +14,12 @@ spec:
         - name: manager-config
           mountPath: /controller_manager_config.yaml
           subPath: controller_manager_config.yaml
+        env:
+        - name: VRA_REFRESH_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: vra-crd-auth-secret
+              key: refreshToken
       volumes:
       - name: manager-config
         configMap:

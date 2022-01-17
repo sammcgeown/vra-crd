@@ -13,4 +13,9 @@ kind: Kustomization
 images:
 - name: controller
   newName: harbor.sc2vc03.cmbu.local/smcgeown/vra-crd
-  newTag: 0.0.2
+  newTag: 0.0.3
+
+secretGenerator:
+- files:
+  - refreshToken
+  name: auth-secret

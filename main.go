@@ -88,6 +88,7 @@ func main() {
 			os.Exit(1)
 		}
 	}
+	ctrlConfig.RefreshToken = os.Getenv("VRA_REFRESH_TOKEN")
 
 	mgr, err := ctrl.NewManager(ctrl.GetConfigOrDie(), options)
 	if err != nil {

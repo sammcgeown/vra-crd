@@ -7,6 +7,6 @@ metrics:
 webhook:
   port: 9443
 leaderElection:
-  leaderElect: true
+  leaderElect: false
   resourceName: c3070217.cmbu.local
 url: https://api.mgmt.cloud.vmware.com
