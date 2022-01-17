@@ -1,0 +1,202 @@
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.7.0
+  creationTimestamp: null
+  name: virtualmachines.machine.cmbu.local
+spec:
+  group: machine.cmbu.local
+  names:
+    kind: VirtualMachine
+    listKind: VirtualMachineList
+    plural: virtualmachines
+    singular: virtualmachine
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.phase
+      name: Phase
+      type: string
+    - jsonPath: .status.externalID
+      name: External_ID
+      type: string
+    - jsonPath: .status.externalRequestID
+      name: External_Request_ID
+      type: string
+    - jsonPath: .status.lastMessage
+      name: Last_Message
+      type: string
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: VirtualMachine is the Schema for the virtualmachines API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: VirtualMachineSpec defines the desired state of VirtualMachine
+            properties:
+              address:
+                description: 'Primary address allocated or in use by this machine.
+                  The actual type of the address depends on the adapter type. Typically
+                  it is either the public or the external IP address. Example: 34.242.21.5'
+                type: string
+              bootConfig:
+                description: The cloud config data in json-escaped yaml syntax
+                properties:
+                  content:
+                    description: 'A valid cloud config data in json-escaped yaml syntax
+                      Example: #cloud-config\nrepo_update: true\nrepo_upgrade: all\n\npackages:\n
+                      - mysql-server\n\nruncmd:\n - sed -e ''/bind-address/ s/^#*/#/''
+                      -i /etc/mysql/mysql.conf.d/mysqld.cnf\n - service mysql restart\n
+                      - mysql -e \"GRANT ALL PRIVILEGES ON *.* TO ''root''@''%'' IDENTIFIED
+                      BY ''mysqlpassword'';\"\n - mysql -e \"FLUSH PRIVILEGES;\"\n'
+                    type: string
+                type: object
+              cloudAccountIds:
+                description: 'Set of ids of the cloud accounts this resource belongs
+                  to. Example: [9e49] Unique: true'
+                items:
+                  type: string
+                type: array
+              constraints:
+                description: 'Constraint tags Required: false'
+                items:
+                  description: Constraint are the constraint tags for a virtual machine
+                  properties:
+                    expression:
+                      type: string
+                    mandatory:
+                      type: boolean
+                  required:
+                  - expression
+                  - mandatory
+                  type: object
+                type: array
+              createdAt:
+                description: 'Date when the entity was created. The date is in ISO
+                  8601 and UTC. Example: 2012-09-27'
+                type: string
+              customProperties:
+                additionalProperties:
+                  type: string
+                description: 'Additional properties that may be used to extend the
+                  base resource. Example: { \"property\" : \"value\" }'
+                type: object
+              deploymentId:
+                description: 'Deployment id that is associated with this resource.
+                  Example: 123e4567-e89b-12d3-a456-426655440000'
+                type: string
+              description:
+                description: 'A human-friendly description. Example: my-description'
+                type: string
+              externalId:
+                description: 'External entity Id on the provider side. Example: i-cfe4-e241-e53b-756a9a2e25d2'
+                type: string
+              externalRegionId:
+                description: 'The external regionId of the resource. Example: us-east-1
+                  Required: false'
+                type: string
+              externalZoneId:
+                description: 'The external zoneId of the resource. Example: us-east-1a
+                  Required: false'
+                type: string
+              flavor:
+                description: 'Flavor Required: true'
+                type: string
+              hostname:
+                description: Hostname associated with this machine instance.
+                type: string
+              href:
+                description: href
+                type: string
+              id:
+                description: 'The id of this resource instance Example: 9e49 Required:
+                  false'
+                type: string
+              image:
+                description: 'Image Required: true'
+                type: string
+              orgId:
+                description: 'The id of the organization this entity belongs to. Example:
+                  9e49'
+                type: string
+              organizationId:
+                description: 'This field is deprecated. Use orgId instead. The id
+                  of the organization this entity belongs to. Example: deprecated'
+                type: string
+              owner:
+                description: 'Email of the user that owns the entity. Example: csp@vmware.com'
+                type: string
+              powerState:
+                description: 'Power state of machine. Example: ON, OFF Required: false
+                  Enum: [ON OFF GUEST_OFF UNKNOWN SUSPEND]'
+                type: string
+              projectId:
+                description: 'The id of the project this resource belongs to. Example:
+                  9e49 Required: true'
+                type: string
+              tags:
+                description: Label tags
+                items:
+                  description: Tag are the label tags for a virtual machine
+                  properties:
+                    key:
+                      type: string
+                    value:
+                      type: string
+                  required:
+                  - key
+                  - value
+                  type: object
+                type: array
+              updatedAt:
+                description: 'Date when the entity was last updated. The date is ISO
+                  8601 and UTC. Example: 2012-09-27'
+                type: string
+            required:
+            - tags
+            type: object
+          status:
+            description: VirtualMachineStatus defines the observed state of VirtualMachine
+            properties:
+              externalID:
+                type: string
+              externalRequestID:
+                type: string
+              lastMessage:
+                type: string
+              phase:
+                description: StatusPhase is a string representation of the status
+                  phase
+                type: string
+            required:
+            - externalID
+            - externalRequestID
+            - lastMessage
+            - phase
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

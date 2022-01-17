@@ -1,0 +1,16 @@
+domain: cmbu.local
+layout:
+- go.kubebuilder.io/v3
+projectName: vra-crd
+repo: github.com/sammcgeown/vra
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: cmbu.local
+  group: machine
+  kind: VirtualMachine
+  path: github.com/sammcgeown/vra/api/v1alpha1
+  version: v1alpha1
+version: "3"

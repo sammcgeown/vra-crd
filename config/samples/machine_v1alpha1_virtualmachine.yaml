@@ -1,0 +1,15 @@
+apiVersion: machine.cmbu.local/v1alpha1
+kind: VirtualMachine
+metadata:
+  name: virtualmachine-sample
+spec:
+  description: "Created from a Kubernetes CRD"
+  projectId: "90bb3da1-8e1f-40c0-b431-0838e8ebc28d"
+  constraints:
+  - mandatory: true
+    expression: env:vsphere
+  flavor: "small"
+  tags:
+  - key: "k8s_name"
+    value: "virtualmachine-sample"
+  image: "ubuntu-18"
