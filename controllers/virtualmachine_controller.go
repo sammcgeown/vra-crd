@@ -277,12 +277,18 @@ func createStatus(phase machinev1alpha1.StatusPhase, msg string, err error, requ
 
 func (r *VirtualMachineReconciler) createMachine(virtualMachine machinev1alpha1.VirtualMachine) (*string, error) {
 	name := virtualMachine.GetName()
+	namespace := virtualMachine.GetNamespace()
 	constraints := expandConstraints(virtualMachine.Spec.Constraints)
-	k8sTag := "k8s_name"
+	k8sName := "k8s_name"
+	k8sNamespace := "k8s_namespace"
 	tags := expandTags(virtualMachine.Spec.Tags)
 	tags = append(tags, &models.Tag{
-		Key:   &k8sTag,
+		Key:   &k8sName,
 		Value: &name,
+	})
+	tags = append(tags, &models.Tag{
+		Key:   &k8sNamespace,
+		Value: &namespace,
 	})
 
 	machineSpecification := models.MachineSpecification{
