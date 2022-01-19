@@ -65,8 +65,14 @@ func (r *VirtualMachineReconciler) Reconcile(ctx context.Context, req ctrl.Reque
 
 	var virtualMachine machinev1alpha1.VirtualMachine
 	if err := r.Get(ctx, req.NamespacedName, &virtualMachine); err != nil {
+		if err.Error() == "VirtualMachine.machine.cmbu.local \""+virtualMachine.Name+"\" not found" {
+			log.Info("unable to fetch VirtualMachine", err)
+			return ctrl.Result{}, nil
+		}
+		// else
 		log.Error(err, "unable to fetch VirtualMachine")
-		return ctrl.Result{}, client.IgnoreNotFound(err)
+		return ctrl.Result{}, err
+
 	}
 
 	msg := fmt.Sprintf("received reconcile request for %q (namespace: %q)", virtualMachine.GetName(), virtualMachine.GetNamespace())

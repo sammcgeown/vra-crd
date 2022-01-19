@@ -2,6 +2,7 @@ apiVersion: machine.cmbu.local/v1alpha1
 kind: VirtualMachine
 metadata:
   name: vm-one
+  namespace: default
 spec:
   description: "Created from a Kubernetes CRD"
   projectId: "90bb3da1-8e1f-40c0-b431-0838e8ebc28d"
@@ -19,6 +20,7 @@ apiVersion: machine.cmbu.local/v1alpha1
 kind: VirtualMachine
 metadata:
   name: vm-two
+  namespace: my-namespace
 spec:
   description: "Created from a Kubernetes CRD"
   projectId: "90bb3da1-8e1f-40c0-b431-0838e8ebc28d"
@@ -36,6 +38,7 @@ apiVersion: machine.cmbu.local/v1alpha1
 kind: VirtualMachine
 metadata:
   name: vm-three
+  namespace: default
 spec:
   description: "Created from a Kubernetes CRD"
   projectId: "90bb3da1-8e1f-40c0-b431-0838e8ebc28d"
